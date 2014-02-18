@@ -7,22 +7,42 @@
 #
 class solr::install {
 
-  package { 'default-jdk':
-    ensure  => present,
+  case $::operatingsystem {
+    'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
+      $java_package = 'java-1.7.0-openjdk'
+    }
+    'Debian', 'Ubuntu': {
+      $java_package = 'default-jdk'
+    }
+    default: {
+      fail('Sorry, do not know how to handle this OS.')
+    }
   }
 
-  package { 'jetty':
-    ensure  => present,
-    require => Package['default-jdk'],
+  if !defined(Package[$java_package]) {
+    package { $java_package:
+      ensure => present
+    }
   }
 
-  package { 'libjetty-extra':
-    ensure  => present,
-    require => Package['jetty'],
+  if !defined(Package['jetty']) {
+    package { 'jetty':
+      ensure  => present,
+      require => Package[$java_package],
+    }
   }
 
-  package { 'wget':
-    ensure  => present,
+  if !defined(Package['libjetty-extra']) {
+    package { 'libjetty-extra':
+      ensure  => present,
+      require => Package['jetty'],
+    }
+  }
+
+  if !defined(Package['wget']) {
+    package { 'wget':
+      ensure => present,
+    }
   }
 
 }
