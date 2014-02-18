@@ -12,5 +12,6 @@ class solr::params {
   $solr_version   = '4.6.0'
   $cores          = ['default']
   $download_site  = 'http://www.eng.lsu.edu/mirrors/apache/lucene/solr'
+  $jetty_port     = '8080'
 
 }

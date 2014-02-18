@@ -38,21 +38,23 @@
 class solr (
   $cores         = 'UNSET',
   $download_site = $solr::params::download_site,
-  $version       = '4.6.1'
+  $version       = '4.6.1',
+  $jetty_port    = $solr::params::jetty_port
 ) inherits solr::params {
 
   include solr::params
 
   $all_cores = $cores ? {
     'UNSET'   => $::solr::params::cores,
-    default   => $cores,
+    default   => $cores
   }
 
   class {'solr::install': } ->
   class {'solr::config':
     cores         => $all_cores,
     download_site => $download_site,
-    solr_version  => $version
+    solr_version  => $version,
+    jetty_port    => $jetty_port
   } ~>
   class {'solr::service': } ->
   Class['solr']

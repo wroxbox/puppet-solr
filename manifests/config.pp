@@ -14,8 +14,10 @@
 #
 class solr::config(
   $cores         = 'UNSET',
+  $jetty_port    = '8080',
   $download_site = $solr::params::download_site,
-  $solr_version  = $solr::params::solr_version
+  $solr_version  = $solr::params::solr_version,
+  $jetty_port    = $solr::params::jetty_port
 ) inherits solr::params {
 
   $jetty_home     = $::solr::params::jetty_home
@@ -25,7 +27,9 @@ class solr::config(
   #Copy the jetty config file
   file { '/etc/default/jetty':
     ensure  => file,
-    source  => 'puppet:///modules/solr/jetty-default',
+    owner   => 'jetty',
+    group   => 'jetty',
+    content => template('solr/jetty-default.erb'),
     require => Package['jetty'],
   }
 
