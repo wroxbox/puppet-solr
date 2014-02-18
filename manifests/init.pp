@@ -36,8 +36,10 @@
 # Copyright 2012-2013 Vamsee Kanakala, unless otherwise noted.
 #
 class solr (
-  $cores      = 'UNSET'
-) {
+  $cores         = 'UNSET',
+  $download_site = $solr::params::download_site,
+  $version       = '4.6.1'
+) inherits solr::params {
 
   include solr::params
 
@@ -48,7 +50,9 @@ class solr (
 
   class {'solr::install': } ->
   class {'solr::config':
-    cores => $all_cores
+    cores         => $all_cores,
+    download_site => $download_site,
+    solr_version  => $version
   } ~>
   class {'solr::service': } ->
   Class['solr']
