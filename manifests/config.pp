@@ -83,9 +83,8 @@ class solr::config(
     require   => File['/etc/default/jetty'],
   }
 
-  file { "${jetty_home}/webapps":
+  file { [$jetty_home, "${jetty_home}/webapps"]:
     ensure  => directory,
-    recurse => true,
     require => Package[$solr::params::jetty_package],
   }
 
