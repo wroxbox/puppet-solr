@@ -42,6 +42,11 @@ class solr::config(
       group   => 'jetty',
       require => File['/etc/default/jetty']
     }
+
+    exec { 'chmod +x /etc/default/jetty':
+      path    =>  ['/usr/bin', '/usr/sbin', '/bin'],
+      require => File['/etc/init.d/jetty']
+    }
   }
 
   file { $solr_home:
