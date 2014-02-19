@@ -27,6 +27,12 @@ class solr::install inherits solr::params {
     }
   }
 
+  if (!defined(User['jetty'])) {
+    user { 'jetty':
+      ensure => present
+    }
+  }
+
   if !defined(Package['wget']) {
     package { 'wget':
       ensure => present,
