@@ -37,7 +37,7 @@ class solr::config(
     file { '/etc/init.d/jetty':
       ensure  => link,
       target  => '/etc/default/jetty',
-      mode    => 755,
+      mode    => 775,
       owner   => 'jetty',
       group   => 'jetty',
       require => File['/etc/default/jetty']
