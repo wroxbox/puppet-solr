@@ -33,6 +33,17 @@ class solr::config(
     require => Package[$solr::params::jetty_package],
   }
 
+  if $::osfamily == 'redhat' {
+    file { '/etc/init.d/jetty':
+      ensure  => link,
+      target  => '/etc/default/jetty',
+      mode    => 755,
+      owner   => 'jetty',
+      group   => 'jetty',
+      require => File['/etc/default/jetty']
+    }
+  }
+
   file { $solr_home:
     ensure    => directory,
     owner     => 'jetty',
