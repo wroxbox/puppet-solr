@@ -5,39 +5,25 @@
 # - Installs default jdk
 # - Installs jetty and extra libs
 #
-class solr::install {
+class solr::install inherits solr::params {
 
-  case $::operatingsystem {
-    'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
-      $java_package  = 'java-1.7.0-openjdk'
-      $jetty_package = 'jetty-eclipse'
-    }
-    'Debian', 'Ubuntu': {
-      $java_package  = 'default-jdk'
-      $jetty_package = 'jetty'
-    }
-    default: {
-      fail('Sorry, do not know how to handle this OS.')
-    }
-  }
-
-  if !defined(Package[$java_package]) {
-    package { $java_package:
+  if !defined(Package[$solr::params::java_package]) {
+    package { $solr::params::java_package:
       ensure => present
     }
   }
 
-  if !defined(Package[$jetty_package]) {
-    package { $jetty_package:
+  if !defined(Package[$solr::params::jetty_package]) {
+    package { $solr::params::jetty_package:
       ensure  => present,
-      require => Package[$java_package],
+      require => Package[$solr::params::java_package],
     }
   }
 
   if !defined(Package['libjetty-extra']) {
     package { 'libjetty-extra':
       ensure  => present,
-      require => Package[$jetty_package],
+      require => Package[$solr::params::jetty_package],
     }
   }
 

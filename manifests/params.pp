@@ -14,4 +14,18 @@ class solr::params {
   $download_site  = 'http://www.eng.lsu.edu/mirrors/apache/lucene/solr'
   $jetty_port     = '8080'
 
+  case $::operatingsystem {
+    'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
+      $java_package  = 'java-1.7.0-openjdk'
+      $jetty_package = 'jetty-eclipse'
+    }
+    'Debian', 'Ubuntu': {
+      $java_package  = 'default-jdk'
+      $jetty_package = 'jetty'
+    }
+    default: {
+      fail('Sorry, do not know how to handle this OS.')
+    }
+  }
+
 }
