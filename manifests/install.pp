@@ -37,7 +37,7 @@ class solr::install {
   if !defined(Package['libjetty-extra']) {
     package { 'libjetty-extra':
       ensure  => present,
-      require => Package['jetty'],
+      require => Package[$jetty_package],
     }
   }
 
