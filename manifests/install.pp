@@ -20,8 +20,8 @@ class solr::install inherits solr::params {
     }
   }
 
-  if !defined(Package['libjetty-extra']) {
-    package { 'libjetty-extra':
+  if $solr::params::libjetty_extra and !defined(Package[$solr::params::libjetty_extra]) {
+    package { $solr::params::libjetty_extra:
       ensure  => present,
       require => Package[$solr::params::jetty_package],
     }

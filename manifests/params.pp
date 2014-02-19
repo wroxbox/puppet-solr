@@ -16,12 +16,14 @@ class solr::params {
 
   case $::operatingsystem {
     'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
-      $java_package  = 'java-1.7.0-openjdk'
-      $jetty_package = 'jetty-eclipse'
+      $java_package   = 'java-1.7.0-openjdk'
+      $jetty_package  = 'jetty-eclipse'
+      $libjetty_extra = false
     }
     'Debian', 'Ubuntu': {
-      $java_package  = 'default-jdk'
-      $jetty_package = 'jetty'
+      $java_package   = 'default-jdk'
+      $jetty_package  = 'jetty'
+      $libjetty_extra = 'libjetty-extra'
     }
     default: {
       fail('Sorry, do not know how to handle this OS.')
