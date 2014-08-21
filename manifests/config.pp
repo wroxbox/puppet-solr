@@ -14,7 +14,7 @@
 #
 class solr::config(
   $cores         = 'UNSET',
-  $jetty_port    = '8080',
+  $jetty_port    = '8993',
   $download_site = $solr::params::download_site,
   $solr_version  = $solr::params::solr_version,
   $jetty_port    = $solr::params::jetty_port

@@ -12,7 +12,7 @@ class solr::params {
   $solr_version   = '4.9.0'
   $cores          = ['default']
   $download_site  = 'http://www.eng.lsu.edu/mirrors/apache/lucene/solr'
-  $jetty_port     = '8080'
+  $jetty_port     = '8993'
 
   case $::operatingsystem {
     'CentOS', 'Fedora', 'Scientific', 'RedHat', 'Amazon', 'OracleLinux': {
