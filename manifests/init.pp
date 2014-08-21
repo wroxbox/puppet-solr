@@ -38,7 +38,7 @@
 class solr (
   $cores         = 'UNSET',
   $download_site = $solr::params::download_site,
-  $version       = '4.6.1',
+  $version       = '4.9.0',
   $jetty_port    = $solr::params::jetty_port
 ) inherits solr::params {
 
